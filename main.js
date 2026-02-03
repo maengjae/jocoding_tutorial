@@ -1,21 +1,38 @@
-const lottoNumbersContainer = document.getElementById('lotto-numbers-container');
-const generateBtn = document.getElementById('generate-btn');
+const drawButton = document.getElementById('draw-button');
+const resultsDiv = document.getElementById('results');
+const numbersDiv = document.querySelector('.numbers');
+const bonusDiv = document.querySelector('.bonus-number');
 
-function generateLottoNumbers() {
-    lottoNumbersContainer.innerHTML = '';
+drawButton.addEventListener('click', () => {
+    resultsDiv.style.display = 'block';
+    drawNumbers();
+});
+
+function drawNumbers() {
     const numbers = new Set();
     while (numbers.size < 6) {
-        numbers.add(Math.floor(Math.random() * 49) + 1);
+        numbers.add(Math.floor(Math.random() * 45) + 1);
     }
 
-    for (const number of numbers) {
-        const lottoNumber = document.createElement('div');
-        lottoNumber.classList.add('lotto-number');
-        lottoNumber.textContent = number;
-        lottoNumbersContainer.appendChild(lottoNumber);
-    }
+    const bonus = Math.floor(Math.random() * 45) + 1;
+
+    const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
+
+    displayNumbers(sortedNumbers, bonus);
 }
 
-generateBtn.addEventListener('click', generateLottoNumbers);
+function displayNumbers(numbers, bonus) {
+    numbersDiv.innerHTML = '';
+    for (const number of numbers) {
+        const numberDiv = document.createElement('div');
+        numberDiv.className = 'number';
+        numberDiv.textContent = number;
+        numbersDiv.appendChild(numberDiv);
+    }
 
-generateLottoNumbers();
+    bonusDiv.innerHTML = '';
+    const bonusNumberDiv = document.createElement('div');
+    bonusNumberDiv.className = 'bonus';
+    bonusNumberDiv.textContent = bonus;
+    bonusDiv.appendChild(bonusNumberDiv);
+}
