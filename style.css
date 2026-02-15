@@ -125,3 +125,7 @@ h1 {
 #contact button:hover {
     background-color: #c60055;
 }
+
+#adsense-ad-unit {
+    margin-top: 30px;
+}
