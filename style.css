@@ -1,103 +1,99 @@
-/* General Body Styles */
+/* General body styles */
 body {
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
+    margin: 0;
     background-color: #f0f2f5;
     color: #333;
-    margin: 0;
-    padding: 20px;
+}
+
+/* Header styles */
+header {
+    background-color: #4A90E2;
+    color: white;
+    padding: 1rem;
     text-align: center;
 }
 
-/* Header Styles */
-header {
-    margin-bottom: 40px;
-}
-
-header h1 {
-    font-size: 2.5em;
-    color: #1c1e21;
-}
-
-header p {
-    font-size: 1.2em;
-    color: #606770;
-}
-
-/* Main Content Styles */
-main {
-    max-width: 900px;
-    margin: 0 auto;
+/* Main content container */
+.container {
     display: flex;
-    flex-direction: column;
-    gap: 40px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
 }
 
-/* Meme Gallery Styles */
-.meme-gallery h2, .meme-editor h2 {
+.left-column {
+    flex: 3;
+    margin-right: 20px;
+}
+
+.right-column {
+    flex: 1;
+}
+
+/* Song input section */
+.song-input {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
 
-.gallery-grid {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
+.input-group {
+    margin-bottom: 15px;
 }
 
-.gallery-grid img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-.gallery-grid img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Meme Editor Styles */
-.editor-container {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    justify-content: center;
-}
-
-#meme-canvas {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    max-width: 400px; /* Set a max-width for responsiveness */
-    height: auto; /* Maintain aspect ratio */
-}
-
-.controls {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 300px;
-}
-
-.controls input[type="text"] {
+.input-group input,
+.input-group select {
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
+    border-radius: 4px;
 }
 
-#generate-btn {
-    padding: 12px 20px;
-    background-color: #1877f2; /* Facebook Blue */
+#mix-btn {
+    background-color: #4A90E2;
     color: white;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 16px;
 }
 
-#generate-btn:hover {
-    background-color: #166fe5;
+#mix-btn:hover {
+    background-color: #357ABD;
+}
+
+/* Mix output section */
+.mix-output {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#player-container {
+    /* Placeholder for the music player */
+    height: 200px;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+/* Ad placeholder */
+.ad-placeholder {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }

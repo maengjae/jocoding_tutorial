@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meme Generator</title>
+    <title>Music Mix AI</title>
     <link rel="stylesheet" href="style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5394413318565204"
      crossorigin="anonymous"></script>
@@ -11,32 +11,49 @@
 </head>
 <body>
     <header>
-        <h1>Meme Generator</h1>
-        <p>오늘의 밈을 만들고 공유하세요!</p>
+        <h1>Music Mix AI</h1>
+        <p>Create your own music mix with the power of AI.</p>
     </header>
 
     <main>
-        <section class="meme-gallery">
-            <h2>오늘의 인기 밈 템플릿</h2>
-            <div class="gallery-grid">
-                <!-- 밈 템플릿 이미지들이 여기에 들어갑니다 -->
-                <img src="images/drake.jpg" alt="Drake Meme Template">
-                <img src="images/disaster-girl.jpg" alt="Disaster Girl Meme Template">
-                <img src="images/cheems.jpg" alt="Cheems Meme Template">
-            </div>
-        </section>
+        <div class="container">
+            <div class="left-column">
+                <section class="song-input">
+                    <h2>Add Your Songs</h2>
+                    <div class="input-group">
+                        <label for="song-url-1">Song 1 URL:</label>
+                        <input type="url" id="song-url-1" placeholder="https://www.youtube.com/watch?v=...">
+                    </div>
+                    <div class="input-group">
+                        <label for="song-url-2">Song 2 URL:</label>
+                        <input type="url" id="song-url-2" placeholder="https://www.youtube.com/watch?v=...">
+                    </div>
+                    <div class="input-group">
+                        <label for="mix-style">Mixing Style:</label>
+                        <select id="mix-style">
+                            <option value="crossfade">Crossfade</option>
+                            <option value="beatmatch">Beatmatch</option>
+                            <option value="remix">AI Remix</option>
+                        </select>
+                    </div>
+                    <button id="mix-btn">Mix Music</button>
+                </section>
 
-        <section class="meme-editor">
-            <h2>밈 만들기</h2>
-            <div class="editor-container">
-                <canvas id="meme-canvas" width="500" height="500"></canvas> <!-- Adjust initial size -->
-                <div class="controls">
-                    <input type="text" id="top-text" placeholder="상단 텍스트">
-                    <input type="text" id="bottom-text" placeholder="하단 텍스트">
-                    <button id="generate-btn">밈 생성 & 다운로드</button>
-                </div>
+                <section class="mix-output">
+                    <h2>Your Mix</h2>
+                    <div id="player-container">
+                        <!-- Music player will be embedded here -->
+                    </div>
+                </section>
             </div>
-        </section>
+
+            <div class="right-column">
+                <aside class="ad-placeholder">
+                    <!-- Google AdSense will be placed here -->
+                    <p>AdSense Ad</p>
+                </aside>
+            </div>
+        </div>
     </main>
 
     <script src="script.js"></script>
