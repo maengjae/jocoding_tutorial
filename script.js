@@ -31,6 +31,20 @@ const essentia = new Essentia(EssentiaWASM);
 
 // --- EVENT LISTENERS ---
 
+track1Input.addEventListener('change', () => {
+    const track1 = track1Input.files[0];
+    if (track1) {
+        track1Info.textContent = track1.name;
+    }
+});
+
+track2Input.addEventListener('change', () => {
+    const track2 = track2Input.files[0];
+    if (track2) {
+        track2Info.textContent = track2.name;
+    }
+});
+
 mixButton.addEventListener('click', async () => {
     const track1 = track1Input.files[0];
     const track2 = track2Input.files[0];
