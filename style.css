@@ -79,6 +79,11 @@ audio::-webkit-media-controls-time-remaining-display {
     text-shadow: 0 0 5px #0f0;
 }
 
+.effects-rack div {
+    display: flex;
+    gap: 1rem;
+}
+
 .effects-rack button {
     background-color: #333;
     color: #0f0;
