@@ -36,6 +36,23 @@ h1 {
     gap: 1rem;
 }
 
+#track1-info, #track2-info {
+    background-color: #1a1a1a;
+    border: 1px solid #0f0;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    width: 80%;
+    min-height: 40px;
+    text-align: center;
+    color: #0f0;
+    font-size: 0.9rem;
+    word-wrap: break-word;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 label {
     font-size: 1.2rem;
     color: #0f0;
