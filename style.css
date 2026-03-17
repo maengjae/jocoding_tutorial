@@ -34,6 +34,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    position: relative; /* Add this for positioning the input */
 }
 
 #track1-info, #track2-info {
@@ -59,7 +60,15 @@ label {
 }
 
 input[type="file"] {
-    display: none; /* Hide the default file input */
+    /* Make the input invisible but still functional */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
 .file-label {
@@ -140,6 +149,13 @@ input[type="range"]::-webkit-slider-thumb {
 #mix-button:hover, #ai-transition-button:hover, #play-button:hover, #stop-button:hover {
     transform: scale(1.05);
     box-shadow: 0 0 20px #0f0;
+}
+
+#mix-button:disabled {
+    background-color: #555;
+    color: #999;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
 .output {
