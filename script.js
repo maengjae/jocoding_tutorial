@@ -36,6 +36,8 @@ mixButton.addEventListener('click', async () => {
     const track2 = track2Input.files[0];
 
     if (track1 && track2) {
+        track1Info.textContent = `Loading: ${track1.name}...`;
+        track2Info.textContent = `Loading: ${track2.name}...`;
         await loadAndSync(track1, track2);
     } else {
         alert('Please select two audio files.');
@@ -111,8 +113,8 @@ async function loadAndSync(file1, file2) {
         const [bpm2, onsets2] = await analyzeTrack(buffer2.get());
         console.log("Tracks analyzed.");
 
-        track1Info.textContent = `Track 1 BPM: ${bpm1.toFixed(2)}`;
-        track2Info.textContent = `Track 2 BPM: ${bpm2.toFixed(2)}`;
+        track1Info.textContent = `${file1.name} | BPM: ${bpm1.toFixed(2)}`;
+        track2Info.textContent = `${file2.name} | BPM: ${bpm2.toFixed(2)}`;
 
         // --- EFFECTS CHAIN ---
         // Create effects
@@ -152,6 +154,8 @@ async function loadAndSync(file1, file2) {
         console.log('Tracks loaded, synced, and phase-aligned with effects!');
     } catch (error) {
         console.error("Error during track loading and syncing:", error);
+        track1Info.textContent = `Error loading ${file1.name}`;
+        track2Info.textContent = `Error loading ${file2.name}`;
         alert("There was an error loading the tracks. Please check the console for details.");
     }
 }
