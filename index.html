@@ -3,59 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Mix AI</title>
+    <title>AI Music Mixer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5394413318565204"
-     crossorigin="anonymous"></script>
-    <meta name="google-adsense-account" content="ca-pub-5394413318565204">
 </head>
 <body>
-    <header>
-        <h1>Music Mix AI</h1>
-        <p>Create your own music mix with the power of AI.</p>
-    </header>
-
-    <main>
-        <div class="container">
-            <div class="left-column">
-                <section class="song-input">
-                    <h2>Add Your Songs</h2>
-                    <div class="input-group">
-                        <label for="song-url-1">Song 1 URL:</label>
-                        <input type="url" id="song-url-1" placeholder="https://www.youtube.com/watch?v=...">
-                    </div>
-                    <div class="input-group">
-                        <label for="song-url-2">Song 2 URL:</label>
-                        <input type="url" id="song-url-2" placeholder="https://www.youtube.com/watch?v=...">
-                    </div>
-                    <div class="input-group">
-                        <label for="mix-style">Mixing Style:</label>
-                        <select id="mix-style">
-                            <option value="crossfade">Crossfade</option>
-                            <option value="beatmatch">Beatmatch</option>
-                            <option value="remix">AI Remix</option>
-                        </select>
-                    </div>
-                    <button id="mix-btn">Mix Music</button>
-                </section>
-
-                <section class="mix-output">
-                    <h2>Your Mix</h2>
-                    <div id="player-container">
-                        <!-- Music player will be embedded here -->
-                    </div>
-                </section>
-            </div>
-
-            <div class="right-column">
-                <aside class="ad-placeholder">
-                    <!-- Google AdSense will be placed here -->
-                    <p>AdSense Ad</p>
-                </aside>
+    <h1>AI Music Mixer</h1>
+    <div class="mixer">
+        <div class="track-controls">
+            <label for="track1" class="file-label">Load Track 1</label>
+            <input type="file" id="track1" accept="audio/*">
+            <div id="track1-info"></div>
+            <div class="effects-rack">
+                <label for="filter1">Filter</label>
+                <input type="range" id="filter1" min="20" max="10000" value="10000">
+                <button id="reverb1">Reverb</button>
+                <button id="delay1">Delay</button>
             </div>
         </div>
-    </main>
+        <div class="track-controls">
+            <label for="track2" class="file-label">Load Track 2</label>
+            <input type="file" id="track2" accept="audio/*">
+            <div id="track2-info"></div>
+             <div class="effects-rack">
+                <label for="filter2">Filter</label>
+                <input type="range" id="filter2" min="20" max="10000" value="10000">
+                <button id="reverb2">Reverb</button>
+                <button id="delay2">Delay</button>
+            </div>
+        </div>
+        <div class="faders">
+            <div class="crossfader-container">
+                <label for="crossfader">Crossfader</label>
+                <input type="range" id="crossfader" min="0" max="1" step="0.01" value="0.5">
+            </div>
+        </div>
+        <div class="button-container">
+            <button id="mix-button">Load & Sync</button>
+            <button id="ai-transition-button">AI Transition</button>
+        </div>
+    </div>
+    <div class="output">
+        <h2>Playback</h2>
+        <button id="play-button">Play</button>
+        <button id="stop-button">Stop</button>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/essentia.js@0.1.3/dist/essentia-wasm.module.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/essentia.js@0.1.3/dist/essentia.js-core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.23.1/es6/core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.23.1/es6/music_rnn.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

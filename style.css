@@ -1,99 +1,162 @@
-/* General body styles */
 body {
-    font-family: sans-serif;
-    margin: 0;
-    background-color: #f0f2f5;
-    color: #333;
-}
-
-/* Header styles */
-header {
-    background-color: #4A90E2;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-}
-
-/* Main content container */
-.container {
+    font-family: 'Orbitron', sans-serif;
+    background-color: #111;
+    color: #eee;
     display: flex;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 0 20px;
-}
-
-.left-column {
-    flex: 3;
-    margin-right: 20px;
-}
-
-.right-column {
-    flex: 1;
-}
-
-/* Song input section */
-.song-input {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.input-group {
-    margin-bottom: 15px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.input-group input,
-.input-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#mix-btn {
-    background-color: #4A90E2;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#mix-btn:hover {
-    background-color: #357ABD;
-}
-
-/* Mix output section */
-.mix-output {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#player-container {
-    /* Placeholder for the music player */
-    height: 200px;
-    background-color: #e9ecef;
-    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 4px;
+    min-height: 100vh;
+    margin: 0;
 }
 
-/* Ad placeholder */
-.ad-placeholder {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+h1 {
+    font-size: 3rem;
+    color: #0f0;
+    text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0;
+    margin-bottom: 2rem;
+}
+
+.mixer {
+    background-color: #222;
+    border: 2px solid #0f0;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.track-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+label {
+    font-size: 1.2rem;
+    color: #0f0;
+}
+
+input[type="file"] {
+    display: none; /* Hide the default file input */
+}
+
+.file-label {
+    background-color: #333;
+    color: #0f0;
+    padding: 10px 20px;
+    border: 2px solid #0f0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-label:hover {
+    background-color: #0f0;
+    color: #111;
+    box-shadow: 0 0 10px #0f0;
+}
+
+.faders {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.crossfader-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.crossfader-container label {
+    margin-bottom: 0.5rem;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 80%;
+    height: 10px;
+    background: #444;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid #0f0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #0f0;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px #0f0;
+}
+
+.button-container {
+    grid-column: span 2;
     text-align: center;
+}
+
+#mix-button, #ai-transition-button, #play-button, #stop-button {
+    background-color: #0f0;
+    color: #111;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #0f0;
+    margin: 0 10px;
+}
+
+#mix-button:hover, #ai-transition-button:hover, #play-button:hover, #stop-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #0f0;
+}
+
+.output {
+    margin-top: 2rem;
+    width: 80%;
+    text-align: center;
+}
+
+h2 {
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0;
+}
+
+.effects-rack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    border: 1px solid #0f0;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.effects-rack button {
+    background-color: #333;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.effects-rack button.active {
+    background-color: #0f0;
+    color: #111;
 }
