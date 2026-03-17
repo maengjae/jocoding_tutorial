@@ -17,17 +17,25 @@ const delay1Button = document.getElementById('delay1');
 const reverb2Button = document.getElementById('reverb2');
 const delay2Button = document.getElementById('delay2');
 
-
+let essentia;
 let player1, player2, crossfade, filter1, filter2, reverb, delay;
-// let music_rnn;
 
-// Initialize Essentia
-const essentia = new Essentia(EssentiaWASM);
+// --- INITIALIZATION ---
+// Disable the main button until the AI engine is ready
+mixButton.disabled = true;
+mixButton.textContent = 'Loading AI Engine...';
 
-// Initialize Magenta
-// music_rnn = new music_rnn.MusicRNN('https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn');
-// music_rnn.initialize();
-
+new EssentiaWASM().then(function(WasmModule) {
+    essentia = new Essentia(WasmModule);
+    console.log('Essentia.js WASM module loaded successfully.');
+    // Now that Essentia is loaded, enable the main button
+    mixButton.disabled = false;
+    mixButton.textContent = 'Load & Sync';
+}).catch(function(error) {
+    console.error('Failed to load Essentia.js WASM module:', error);
+    mixButton.textContent = 'AI Engine Failed to Load';
+    alert('Critical error: The audio analysis engine could not be loaded. Please refresh the page.');
+});
 
 // --- EVENT LISTENERS ---
 
@@ -78,8 +86,6 @@ crossfader.addEventListener('input', () => {
 });
 
 aiTransitionButton.addEventListener('click', async () => {
-    // Placeholder for AI transition logic.
-    // This is where we would use Magenta.js to generate a transition.
     alert("AI Transition coming soon!");
 });
 
@@ -112,17 +118,13 @@ async function loadAndSync(file1, file2) {
         if (reverb) reverb.dispose();
         if (delay) delay.dispose();
 
-
-        // Create URL for uploaded files
         const url1 = URL.createObjectURL(file1);
         const url2 = URL.createObjectURL(file2);
 
-        // Get audio buffers
         const buffer1 = await new Tone.Buffer(url1);
         const buffer2 = await new Tone.Buffer(url2);
         console.log("Audio buffers created.");
 
-        // Analyze BPM and onsets
         const [bpm1, onsets1] = await analyzeTrack(buffer1.get());
         const [bpm2, onsets2] = await analyzeTrack(buffer2.get());
         console.log("Tracks analyzed.");
@@ -130,40 +132,31 @@ async function loadAndSync(file1, file2) {
         track1Info.textContent = `${file1.name} | BPM: ${bpm1.toFixed(2)}`;
         track2Info.textContent = `${file2.name} | BPM: ${bpm2.toFixed(2)}`;
 
-        // --- EFFECTS CHAIN ---
-        // Create effects
         filter1 = new Tone.Filter(10000, "lowpass").toDestination();
         filter2 = new Tone.Filter(10000, "lowpass").toDestination();
         reverb = new Tone.Reverb({ decay: 5, wet: 0.5 }).toDestination();
         delay = new Tone.FeedbackDelay("8n", 0.5).toDestination();
 
-        // Create players and connect to effects chain
         player1 = new Tone.Player(buffer1);
         player2 = new Tone.Player(buffer2);
 
-        // Create crossfader and connect players
         crossfade = new Tone.CrossFade().toDestination();
         player1.connect(filter1).connect(crossfade.a);
         player2.connect(filter2).connect(crossfade.b);
         crossfade.fade.value = 0.5;
 
-        // --- Tempo Matching ---
         const playbackRate = bpm1 / bpm2;
         player2.playbackRate = playbackRate;
         Tone.Transport.bpm.value = bpm1;
 
-        // --- Phase Alignment ---
-        const offset = onsets1[0] - (onsets2[0] * playbackRate); // Adjust offset by playbackrate
+        const offset = onsets1[0] - (onsets2[0] * playbackRate);
         const player2StartTime = offset > 0 ? offset : 0;
         const player1StartTime = offset < 0 ? -offset : 0;
 
-
-        // Wait for players to load and then sync them
         await Tone.loaded();
         console.log("Tone.js loaded.");
         player1.sync().start(player1StartTime);
         player2.sync().start(player2StartTime);
-
 
         console.log('Tracks loaded, synced, and phase-aligned with effects!');
     } catch (error) {
@@ -182,10 +175,9 @@ async function analyzeTrack(audioBuffer) {
         return [bpmResult.bpm, onsetsResult.onsets];
     } catch (error) {
         console.error("Error during track analysis:", error);
-        throw error; // Re-throw the error to be caught by the main function
+        throw error;
     }
 }
-
 
 function toggleEffect(effectNode, player, button) {
   if (player.fan(effectNode).length > 0) {
