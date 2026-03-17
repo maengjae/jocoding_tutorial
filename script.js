@@ -19,14 +19,14 @@ const delay2Button = document.getElementById('delay2');
 
 
 let player1, player2, crossfade, filter1, filter2, reverb, delay;
-let music_rnn;
+// let music_rnn;
 
 // Initialize Essentia
 const essentia = new Essentia(EssentiaWASM);
 
 // Initialize Magenta
-music_rnn = new music_rnn.MusicRNN('https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn');
-music_rnn.initialize();
+// music_rnn = new music_rnn.MusicRNN('https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn');
+// music_rnn.initialize();
 
 
 // --- EVENT LISTENERS ---
@@ -86,76 +86,86 @@ delay2Button.addEventListener('click', () => toggleEffect(delay, player2, delay2
 // --- CORE FUNCTIONS ---
 
 async function loadAndSync(file1, file2) {
-    if (player1) player1.dispose();
-    if (player2) player2.dispose();
-    if (crossfade) crossfade.dispose();
-    if (filter1) filter1.dispose();
-    if (filter2) filter2.dispose();
-    if (reverb) reverb.dispose();
-    if (delay) delay.dispose();
+    try {
+        console.log("Starting track loading and syncing...");
+        if (player1) player1.dispose();
+        if (player2) player2.dispose();
+        if (crossfade) crossfade.dispose();
+        if (filter1) filter1.dispose();
+        if (filter2) filter2.dispose();
+        if (reverb) reverb.dispose();
+        if (delay) delay.dispose();
 
 
-    // Create URL for uploaded files
-    const url1 = URL.createObjectURL(file1);
-    const url2 = URL.createObjectURL(file2);
+        // Create URL for uploaded files
+        const url1 = URL.createObjectURL(file1);
+        const url2 = URL.createObjectURL(file2);
 
-    // Get audio buffers
-    const buffer1 = await new Tone.Buffer(url1);
-    const buffer2 = await new Tone.Buffer(url2);
+        // Get audio buffers
+        const buffer1 = await new Tone.Buffer(url1);
+        const buffer2 = await new Tone.Buffer(url2);
+        console.log("Audio buffers created.");
 
-    // Analyze BPM and onsets
-    const [bpm1, onsets1] = await analyzeTrack(buffer1.get());
-    const [bpm2, onsets2] = await analyzeTrack(buffer2.get());
+        // Analyze BPM and onsets
+        const [bpm1, onsets1] = await analyzeTrack(buffer1.get());
+        const [bpm2, onsets2] = await analyzeTrack(buffer2.get());
+        console.log("Tracks analyzed.");
 
-    track1Info.textContent = `Track 1 BPM: ${bpm1.toFixed(2)}`;
-    track2Info.textContent = `Track 2 BPM: ${bpm2.toFixed(2)}`;
+        track1Info.textContent = `Track 1 BPM: ${bpm1.toFixed(2)}`;
+        track2Info.textContent = `Track 2 BPM: ${bpm2.toFixed(2)}`;
 
-    // --- EFFECTS CHAIN ---
-    // Create effects
-    filter1 = new Tone.Filter(10000, "lowpass").toDestination();
-    filter2 = new Tone.Filter(10000, "lowpass").toDestination();
-    reverb = new Tone.Reverb({ decay: 5, wet: 0.5 }).toDestination();
-    delay = new Tone.FeedbackDelay("8n", 0.5).toDestination();
+        // --- EFFECTS CHAIN ---
+        // Create effects
+        filter1 = new Tone.Filter(10000, "lowpass").toDestination();
+        filter2 = new Tone.Filter(10000, "lowpass").toDestination();
+        reverb = new Tone.Reverb({ decay: 5, wet: 0.5 }).toDestination();
+        delay = new Tone.FeedbackDelay("8n", 0.5).toDestination();
 
-    // Create players and connect to effects chain
-    player1 = new Tone.Player(buffer1);
-    player2 = new Tone.Player(buffer2);
+        // Create players and connect to effects chain
+        player1 = new Tone.Player(buffer1);
+        player2 = new Tone.Player(buffer2);
 
-    // Create crossfader and connect players
-    crossfade = new Tone.CrossFade().toDestination();
-    player1.connect(filter1).connect(crossfade.a);
-    player2.connect(filter2).connect(crossfade.b);
-    crossfade.fade.value = 0.5;
+        // Create crossfader and connect players
+        crossfade = new Tone.CrossFade().toDestination();
+        player1.connect(filter1).connect(crossfade.a);
+        player2.connect(filter2).connect(crossfade.b);
+        crossfade.fade.value = 0.5;
 
-    // --- Tempo Matching ---
-    const playbackRate = bpm1 / bpm2;
-    player2.playbackRate = playbackRate;
-    Tone.Transport.bpm.value = bpm1;
+        // --- Tempo Matching ---
+        const playbackRate = bpm1 / bpm2;
+        player2.playbackRate = playbackRate;
+        Tone.Transport.bpm.value = bpm1;
 
-    // --- Phase Alignment ---
-    const offset = onsets1[0] - (onsets2[0] * playbackRate); // Adjust offset by playbackrate
-    const player2StartTime = offset > 0 ? offset : 0;
-    const player1StartTime = offset < 0 ? -offset : 0;
-
-
-    // Wait for players to load and then sync them
-    await Tone.loaded();
-    player1.sync().start(player1StartTime);
-    player2.sync().start(player2StartTime);
+        // --- Phase Alignment ---
+        const offset = onsets1[0] - (onsets2[0] * playbackRate); // Adjust offset by playbackrate
+        const player2StartTime = offset > 0 ? offset : 0;
+        const player1StartTime = offset < 0 ? -offset : 0;
 
 
-    alert('Tracks loaded, synced, and phase-aligned with effects!');
+        // Wait for players to load and then sync them
+        await Tone.loaded();
+        console.log("Tone.js loaded.");
+        player1.sync().start(player1StartTime);
+        player2.sync().start(player2StartTime);
+
+
+        console.log('Tracks loaded, synced, and phase-aligned with effects!');
+    } catch (error) {
+        console.error("Error during track loading and syncing:", error);
+        alert("There was an error loading the tracks. Please check the console for details.");
+    }
 }
 
 async function analyzeTrack(audioBuffer) {
-    const audioVector = essentia.audioBufferToVector(audioBuffer);
-    const bpmResult = essentia.PercivalBpmEstimator(audioVector);
-    const onsetsResult = essentia.OnsetDetector(audioVector, {
-        frameSize: 2048,
-        hopSize: 1024,
-        silenceThreshold: -60,
-    });
-    return [bpmResult.bpm, onsetsResult.onsets];
+    try {
+        const audioVector = essentia.audioBufferToVector(audioBuffer);
+        const bpmResult = essentia.PercivalBpmEstimator(audioVector);
+        const onsetsResult = essentia.OnsetDetector(audioVector);
+        return [bpmResult.bpm, onsetsResult.onsets];
+    } catch (error) {
+        console.error("Error during track analysis:", error);
+        throw error; // Re-throw the error to be caught by the main function
+    }
 }
 
 
