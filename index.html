@@ -3,61 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Music Mixer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <title>Simple MP3 Player</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/essentia.js@0.1.3/dist/essentia.js-core.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/essentia.js@0.1.3/dist/essentia-wasm.module.js"></script>
 </head>
 <body>
 
-    <h1>AI Music Mixer</h1>
+    <h1>Simple MP3 Player</h1>
 
-    <div class="mixer">
-        <div class="track-controls">
-            <label for="track1" class="file-label">Select Track 1</label>
-            <input type="file" id="track1" accept="audio/*">
-            <div id="track1-info">No track selected</div>
-             <div class="effects-rack">
-                <label for="filter1">Filter:</label>
-                <input type="range" id="filter1" min="20" max="10000" value="10000" class="slider">
-                <button id="reverb1">Reverb</button>
-                <button id="delay1">Delay</button>
-            </div>
-        </div>
-
-        <div class="track-controls">
-            <label for="track2" class="file-label">Select Track 2</label>
-            <input type="file" id="track2" accept="audio/*">
-            <div id="track2-info">No track selected</div>
-            <div class="effects-rack">
-                <label for="filter2">Filter:</label>
-                <input type="range" id="filter2" min="20" max="10000" value="10000" class="slider">
-                <button id="reverb2">Reverb</button>
-                <button id="delay2">Delay</button>
-            </div>
-        </div>
-
-        <div class="faders">
-            <div class="crossfader-container">
-                <label for="crossfader">Crossfader</label>
-                <input type="range" id="crossfader" min="0" max="1" value="0.5" step="0.01">
-            </div>
-        </div>
-
-        <div class="button-container">
-            <button id="mix-button">Load & Sync</button>
-            <button id="play-button">Play</button>
-            <button id="stop-button">Stop</button>
-            <button id="ai-transition-button">AI Transition</button>
-        </div>
-    </div>
-
-    <div class="output">
-        <h2>Output</h2>
-        <p>This is where information about the mixed output will be displayed.</p>
-    </div>
+    <input type="file" id="file-input" accept="audio/mpeg">
+    <audio id="audio-player" controls></audio>
 
     <script src="script.js"></script>
 
