@@ -5,13 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple MP3 Player</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <h1>Simple MP3 Player</h1>
+    <h1>EDM Audio Engine</h1>
 
     <input type="file" id="file-input" accept="audio/mpeg">
+    <label for="file-input" class="file-label">Select MP3</label>
+    
     <audio id="audio-player" controls></audio>
+
+    <div class="effects-rack">
+        <h2>Effects</h2>
+        <button id="filter-button">Toggle Low-Pass Filter</button>
+    </div>
 
     <script src="script.js"></script>
 
