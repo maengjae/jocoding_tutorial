@@ -1,7 +1,7 @@
 body {
-    font-family: sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #111;
+    color: #eee;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,47 +11,169 @@ body {
 }
 
 h1 {
-    font-size: 2.5rem;
-    color: #1877f2;
+    font-size: 3rem;
+    color: #0f0;
+    text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0;
     margin-bottom: 2rem;
 }
 
-.container {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    text-align: center;
-    width: 90%;
-    max-width: 500px;
+.mixer {
+    background-color: #222;
+    border: 2px solid #0f0;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
 }
 
-#youtube-link {
-    width: calc(100% - 22px);
+.track-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#track1-info, #track2-info {
+    background-color: #1a1a1a;
+    border: 1px solid #0f0;
+    border-radius: 5px;
     padding: 10px;
-    border: 1px solid #dddfe2;
-    border-radius: 6px;
-    font-size: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 10px;
+    width: 80%;
+    min-height: 40px;
+    text-align: center;
+    color: #0f0;
+    font-size: 0.9rem;
+    word-wrap: break-word;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#play-button {
-    background-color: #1877f2;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
+label {
+    font-size: 1.2rem;
+    color: #0f0;
+}
+
+input[type="file"] {
+    display: none; /* Hide the default file input */
+}
+
+.file-label {
+    background-color: #333;
+    color: #0f0;
     padding: 10px 20px;
-    font-size: 1rem;
+    border: 2px solid #0f0;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-#play-button:hover {
-    background-color: #166fe5;
+.file-label:hover {
+    background-color: #0f0;
+    color: #111;
+    box-shadow: 0 0 10px #0f0;
 }
 
-#player {
-    margin-top: 1.5rem;
+.faders {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.crossfader-container {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.crossfader-container label {
+    margin-bottom: 0.5rem;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 80%;
+    height: 10px;
+    background: #444;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid #0f0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #0f0;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px #0f0;
+}
+
+.button-container {
+    grid-column: span 2;
+    text-align: center;
+}
+
+#mix-button, #ai-transition-button, #play-button, #stop-button {
+    background-color: #0f0;
+    color: #111;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #0f0;
+    margin: 0 10px;
+}
+
+#mix-button:hover, #ai-transition-button:hover, #play-button:hover, #stop-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #0f0;
+}
+
+.output {
+    margin-top: 2rem;
+    width: 80%;
+    text-align: center;
+}
+
+h2 {
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0;
+}
+
+.effects-rack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    border: 1px solid #0f0;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.effects-rack button {
+    background-color: #333;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.effects-rack button.active {
+    background-color: #0f0;
+    color: #111;
 }
